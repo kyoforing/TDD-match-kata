@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchKata", "MatchKata\MatchKata.csproj", "{BABE0214-90C1-48D8-AF9E-BCFBEC6B109D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchKataTests", "MatchKataTests\MatchKataTests.csproj", "{402F6E3B-002A-4B8B-8087-CCBFB94875B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BABE0214-90C1-48D8-AF9E-BCFBEC6B109D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BABE0214-90C1-48D8-AF9E-BCFBEC6B109D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BABE0214-90C1-48D8-AF9E-BCFBEC6B109D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BABE0214-90C1-48D8-AF9E-BCFBEC6B109D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{402F6E3B-002A-4B8B-8087-CCBFB94875B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{402F6E3B-002A-4B8B-8087-CCBFB94875B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{402F6E3B-002A-4B8B-8087-CCBFB94875B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{402F6E3B-002A-4B8B-8087-CCBFB94875B8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
