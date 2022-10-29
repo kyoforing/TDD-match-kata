@@ -1,4 +1,5 @@
 using MatchKata.Controllers;
+using MatchKata.Enums;
 using MatchKata.Services;
 using NSubstitute;
 using NUnit.Framework;
@@ -20,8 +21,8 @@ namespace MatchKataTests
         [Test]
         public void call_update_method_when_receiving_api_request()
         {
-            _matchController.UpdateMatchRecord();
-            _matchService.Received().AddEvent();
+            _matchController.UpdateMatchRecord(1, MatchEvent.Unknown);
+            _matchService.Received().AddEvent(1, MatchEvent.Unknown);
         }
     }
 }

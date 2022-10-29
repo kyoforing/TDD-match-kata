@@ -1,4 +1,5 @@
-﻿using MatchKata.Services;
+﻿using MatchKata.Enums;
+using MatchKata.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MatchKata.Controllers
@@ -14,9 +15,9 @@ namespace MatchKata.Controllers
         }
 
         [HttpPut("/match/{id}/event-record")]
-        public void UpdateMatchRecord()
+        public void UpdateMatchRecord(int id, MatchEvent matchEvent)
         {
-           _matchService.AddEvent(); 
+           _matchService.AddEvent(id, matchEvent); 
         }
     }
 }
