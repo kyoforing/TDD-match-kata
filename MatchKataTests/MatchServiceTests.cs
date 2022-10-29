@@ -27,7 +27,12 @@ namespace MatchKataTests
                 Id = 1,
                 EnumMatchEvent = EnumMatchEvent.HomeGoal
             });
-            _matchRepository.Received().UpdateMatch(Arg.Is<Match>(match => match.GoalRecord == "H"));
+            GoalRecordShouldBe("H");
+        }
+
+        private void GoalRecordShouldBe(string goalRecord)
+        {
+            _matchRepository.Received().UpdateMatch(Arg.Is<Match>(match => match.GoalRecord == goalRecord));
         }
     }
 }
