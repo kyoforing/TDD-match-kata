@@ -21,8 +21,8 @@ namespace MatchKataTests
         [Test]
         public void call_update_method_when_receiving_api_request()
         {
-            _matchController.UpdateMatchRecord(1, MatchEvent.Unknown);
-            _matchService.Received().AddEvent(1, MatchEvent.Unknown);
+            _matchController.UpdateMatchRecord(1, EnumMatchEvent.Unknown);
+            _matchService.Received().AddEvent(Arg.Any<MatchEvent>());
         }
     }
 }

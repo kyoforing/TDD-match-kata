@@ -15,9 +15,13 @@ namespace MatchKata.Controllers
         }
 
         [HttpPut("/match/{id}/event-record")]
-        public void UpdateMatchRecord(int id, MatchEvent matchEvent)
+        public void UpdateMatchRecord(int id, EnumMatchEvent enumMatchEvent)
         {
-           _matchService.AddEvent(id, matchEvent); 
+           _matchService.AddEvent(new MatchEvent
+           {
+               Id = id,
+               EnumMatchEvent = enumMatchEvent
+           }); 
         }
     }
 }

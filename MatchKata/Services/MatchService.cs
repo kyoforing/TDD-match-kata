@@ -4,9 +4,9 @@ namespace MatchKata.Services
 {
     public class MatchService : IMatchService
     {
-        public void AddEvent(int id, MatchEvent matchEvent)
+        public void AddEvent(MatchEvent matchEvent)
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

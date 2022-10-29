@@ -1,6 +1,6 @@
 ﻿namespace MatchKata.Enums
 {
-    public enum MatchEvent
+    public enum EnumMatchEvent
     {
         Unknown = 0
     }

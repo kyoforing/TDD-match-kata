@@ -2,8 +2,14 @@
 
 namespace MatchKata.Services
 {
+    public class MatchEvent
+    {
+        public int Id { get; set; }
+        public EnumMatchEvent EnumMatchEvent { get; set; }
+    }
+
     public interface IMatchService
     {
-        void AddEvent(int id, MatchEvent matchEvent);
+        void AddEvent(MatchEvent matchEvent);
     }
 }
