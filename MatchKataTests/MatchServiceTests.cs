@@ -147,6 +147,24 @@ namespace MatchKataTests
             GoalRecordShouldBe("H");
         }
 
+        [Test]
+        public void cancel_away_goal_in_the_second_half()
+        {
+            GivenMatch(new Match
+            {
+                LivePeriod = 2,
+                GoalRecord = "HA"
+            });
+
+            _matchService.AddEvent(new MatchEvent
+            {
+                Id = _matchId,
+                EnumMatchEvent = EnumMatchEvent.CancelAwayGoal
+            });
+
+            GoalRecordShouldBe("H;");
+        }
+
         private ConfiguredCall GivenMatch(Match match)
         {
             return _matchRepository.GetMatch(_matchId).Returns(match);

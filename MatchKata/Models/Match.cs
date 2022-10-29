@@ -38,9 +38,13 @@ namespace MatchKata.Models
 
         private void CancelRecord(string symbol)
         {
-            if (GoalRecord.EndsWith(symbol))
+            if (GoalRecord.EndsWith(symbol + SecondHalfSymbol))
             {
-                GoalRecord = GoalRecord[..^1];
+                GoalRecord = GoalRecord.Remove(GoalRecord.Length - 2, 1);
+            }
+            else if (GoalRecord.EndsWith(symbol))
+            {
+                GoalRecord = GoalRecord.Remove(GoalRecord.Length - 1, 1);
             }
         }
 
