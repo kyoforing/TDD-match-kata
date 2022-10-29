@@ -16,6 +16,11 @@ namespace MatchKata.Services
         {
             var match = _matchRepository.GetMatch(matchEvent.Id);
 
+            if (match.LivePeriod == 2)
+            {
+                match.GoalRecord += ";";
+            }
+
             if (matchEvent.EnumMatchEvent == EnumMatchEvent.HomeGoal)
             {
                 match.GoalRecord += "H";
