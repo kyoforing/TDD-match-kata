@@ -1,13 +1,15 @@
-﻿using MatchKata.Enums;
+﻿using System;
+using System.Collections.Generic;
+using MatchKata.Enums;
 using MatchKata.Services;
 
 namespace MatchKata.Models
 {
     public class Match
     {
-        private const char SecondHalfSymbol = ';';
         private const string HomeGoalSymbol = "H";
         private const string AwayGoalSymbol = "A";
+        private const char SecondHalfSymbol = ';';
         public int Id { get; set; }
         public int LivePeriod { get; set; }
         public string GoalRecord { get; set; }
@@ -19,28 +21,28 @@ namespace MatchKata.Models
                 GoalRecord += ";";
             }
 
-            if (matchEvent.EnumMatchEvent == EnumMatchEvent.HomeGoal)
+            var processRecordLookup = new Dictionary<EnumMatchEvent, Action>()
             {
-                AddRecord(HomeGoalSymbol);
-            }
-            else if (matchEvent.EnumMatchEvent == EnumMatchEvent.AwayGoal)
+                [EnumMatchEvent.HomeGoal] = () => AddRecord(HomeGoalSymbol),
+                [EnumMatchEvent.AwayGoal] = () => AddRecord(AwayGoalSymbol),
+                [EnumMatchEvent.CancelHomeGoal] = () => CancelRecord(HomeGoalSymbol),
+                [EnumMatchEvent.CancelAwayGoal] = () => CancelRecord(AwayGoalSymbol),
+            };
+
+            processRecordLookup[matchEvent.EnumMatchEvent]();
+        }
+
+        private void CancelRecord(string symbol)
+        {
+            if (GoalRecord.EndsWith(symbol))
             {
-                AddRecord(AwayGoalSymbol);
-            }
-            else if ((matchEvent.EnumMatchEvent == EnumMatchEvent.CancelHomeGoal && GoalRecord.EndsWith(HomeGoalSymbol)) || (matchEvent.EnumMatchEvent == EnumMatchEvent.CancelAwayGoal && GoalRecord.EndsWith(AwayGoalSymbol)))
-            {
-                CancelRecord();
+                GoalRecord = GoalRecord[..^1];
             }
         }
 
-        private string CancelRecord()
+        private void AddRecord(string symbol)
         {
-            return GoalRecord = GoalRecord.Substring(0, GoalRecord.Length - 1);
-        }
-
-        private string AddRecord(string record)
-        {
-            return GoalRecord += record;
+            GoalRecord += symbol;
         }
 
         private bool IsNeedToAddHalfSymbol()
