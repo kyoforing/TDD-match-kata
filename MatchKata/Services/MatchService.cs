@@ -16,7 +16,7 @@ namespace MatchKata.Services
         {
             var match = _matchRepository.GetMatch(matchEvent.Id);
 
-            if (match.LivePeriod == 2)
+            if (match.LivePeriod == 2 && !match.GoalRecord.Contains(';'))
             {
                 match.GoalRecord += ";";
             }

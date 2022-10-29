@@ -92,6 +92,25 @@ namespace MatchKataTests
 
             GoalRecordShouldBe("H;A"); 
         }
+        
+        [Test]
+        public void away_goal_twice_in_the_second_half()
+        {
+            GivenMatch(new Match
+            {
+                LivePeriod = 2,
+                GoalRecord = "H;A"
+            });
+
+            _matchService.AddEvent(new MatchEvent
+            {
+                Id = _matchId,
+                EnumMatchEvent = EnumMatchEvent.AwayGoal
+            });
+
+            GoalRecordShouldBe("H;AA"); 
+        }
+
 
         private ConfiguredCall GivenMatch(Match match)
         {
