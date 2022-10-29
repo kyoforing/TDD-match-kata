@@ -1,5 +1,4 @@
 ﻿using MatchKata.Enums;
-using MatchKata.Models;
 using MatchKata.Repositories;
 
 namespace MatchKata.Services
@@ -17,8 +16,15 @@ namespace MatchKata.Services
         {
             var match = _matchRepository.GetMatch(matchEvent.Id);
 
-            match.GoalRecord += "H";
-            
+            if (matchEvent.EnumMatchEvent == EnumMatchEvent.HomeGoal)
+            {
+                match.GoalRecord += "H";
+            }
+            else
+            {
+                match.GoalRecord += "A";
+            }
+
             _matchRepository.UpdateMatch(match);
         }
     }

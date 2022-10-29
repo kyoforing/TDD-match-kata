@@ -56,6 +56,24 @@ namespace MatchKataTests
 
             GoalRecordShouldBe("HH");
         }
+        
+        [Test]
+        public void home_away_goal_in_the_first_half()
+        {
+            GivenMatch(new Match
+            {
+                LivePeriod = 1,
+                GoalRecord = "H"
+            });
+
+            _matchService.AddEvent(new MatchEvent
+            {
+                Id = _matchId,
+                EnumMatchEvent = EnumMatchEvent.AwayGoal
+            });
+
+            GoalRecordShouldBe("HA");
+        } 
 
         private ConfiguredCall GivenMatch(Match match)
         {
