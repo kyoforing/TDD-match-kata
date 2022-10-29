@@ -25,6 +25,10 @@ namespace MatchKata.Services
             {
                 match.GoalRecord += "H";
             }
+            else if (matchEvent.EnumMatchEvent == EnumMatchEvent.CancelHomeGoal && match.GoalRecord.EndsWith("H"))
+            {
+                match.GoalRecord = match.GoalRecord.Substring(0, match.GoalRecord.Length - 1);
+            }
             else
             {
                 match.GoalRecord += "A";

@@ -111,6 +111,23 @@ namespace MatchKataTests
             GoalRecordShouldBe("H;AA"); 
         }
 
+        [Test]
+        public void cancel_home_goal_in_the_first_half()
+        {
+            GivenMatch(new Match
+            {
+                LivePeriod = 1,
+                GoalRecord = "H"
+            });
+
+            _matchService.AddEvent(new MatchEvent
+            {
+                Id = _matchId,
+                EnumMatchEvent = EnumMatchEvent.CancelHomeGoal
+            });
+
+            GoalRecordShouldBe("");
+        }
 
         private ConfiguredCall GivenMatch(Match match)
         {

@@ -4,6 +4,7 @@
     {
         Unknown = 0,
         HomeGoal = 1,
-        AwayGoal = 2
+        AwayGoal = 2,
+        CancelHomeGoal = 3
     }
 }
