@@ -40,7 +40,7 @@ namespace MatchKataTests
         }
 
         [Test]
-        public void home_goal_twice_in_the_first_half()
+        public void home_goal_second_times_in_the_first_half()
         {
             GivenMatch(new Match
             {
@@ -94,7 +94,7 @@ namespace MatchKataTests
         }
         
         [Test]
-        public void away_goal_twice_in_the_second_half()
+        public void away_goal_second_times_in_the_second_half()
         {
             GivenMatch(new Match
             {
