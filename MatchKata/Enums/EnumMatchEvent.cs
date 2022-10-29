@@ -2,6 +2,7 @@
 {
     public enum EnumMatchEvent
     {
-        Unknown = 0
+        Unknown = 0,
+        HomeGoal = 1
     }
 }
