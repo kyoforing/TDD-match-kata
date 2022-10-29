@@ -1,4 +1,5 @@
-﻿using MatchKata.Enums;
+﻿using System;
+using MatchKata.Enums;
 using MatchKata.Models;
 using MatchKata.Repositories;
 using MatchKata.Services;
@@ -163,6 +164,38 @@ namespace MatchKataTests
             });
 
             GoalRecordShouldBe("H;");
+        }
+
+        [Test]
+        public void invalid_cancel_goal_in_the_first_half()
+        {
+            GivenMatch(new Match
+            {
+                LivePeriod = 1,
+                GoalRecord = "HH"
+            });
+
+            Assert.Throws<Exception>(() => _matchService.AddEvent(new MatchEvent
+            {
+                Id = _matchId,
+                EnumMatchEvent = EnumMatchEvent.CancelAwayGoal
+            }));
+        }
+        
+        [Test]
+        public void invalid_cancel_goal_in_the_second_half()
+        {
+            GivenMatch(new Match
+            {
+                LivePeriod = 2,
+                GoalRecord = "HH;"
+            });
+
+            Assert.Throws<Exception>(() => _matchService.AddEvent(new MatchEvent
+            {
+                Id = _matchId,
+                EnumMatchEvent = EnumMatchEvent.CancelAwayGoal
+            }));
         }
 
         private ConfiguredCall GivenMatch(Match match)

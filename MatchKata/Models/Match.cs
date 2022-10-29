@@ -46,6 +46,10 @@ namespace MatchKata.Models
             {
                 GoalRecord = GoalRecord.Remove(GoalRecord.Length - 1, 1);
             }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         private void AddRecord(string symbol)
