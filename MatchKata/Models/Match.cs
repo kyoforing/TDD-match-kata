@@ -18,9 +18,13 @@ namespace MatchKata.Models
         {
             if (IsNeedToAddHalfSymbol())
             {
-                GoalRecord += ";";
+                GoalRecord += SecondHalfSymbol;
             }
+            ProcessMatchEvent(matchEvent);
+        }
 
+        private void ProcessMatchEvent(MatchEvent matchEvent)
+        {
             var processRecordLookup = new Dictionary<EnumMatchEvent, Action>()
             {
                 [EnumMatchEvent.HomeGoal] = () => AddRecord(HomeGoalSymbol),
