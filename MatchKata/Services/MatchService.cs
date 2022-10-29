@@ -15,10 +15,11 @@ namespace MatchKata.Services
 
         public void AddEvent(MatchEvent matchEvent)
         {
-            _matchRepository.UpdateMatch(new Match
-            {
-                GoalRecord = "H" 
-            });
+            var match = _matchRepository.GetMatch(matchEvent.Id);
+
+            match.GoalRecord += "H";
+            
+            _matchRepository.UpdateMatch(match);
         }
     }
 }

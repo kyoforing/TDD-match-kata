@@ -7,5 +7,10 @@ namespace MatchKata.Repositories
         public void UpdateMatch(Match match)
         {
         }
+
+        public Match GetMatch(int id)
+        {
+            return new Match();
+        }
     }
 }

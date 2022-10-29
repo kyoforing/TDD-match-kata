@@ -3,14 +3,16 @@ using MatchKata.Models;
 using MatchKata.Repositories;
 using MatchKata.Services;
 using NSubstitute;
+using NSubstitute.Core;
 using NUnit.Framework;
 
 namespace MatchKataTests
 {
     public class MatchServiceTests
     {
-        private MatchService _matchService;
+        private readonly int _matchId = 1;
         private IMatchRepository _matchRepository;
+        private MatchService _matchService;
 
         [SetUp]
         public void SetUp()
@@ -22,12 +24,42 @@ namespace MatchKataTests
         [Test]
         public void first_home_goal_in_the_first_half()
         {
+            GivenMatch(new Match
+            {
+                LivePeriod = 1,
+                GoalRecord = ""
+            });
+
             _matchService.AddEvent(new MatchEvent
             {
-                Id = 1,
+                Id = _matchId,
                 EnumMatchEvent = EnumMatchEvent.HomeGoal
             });
+
             GoalRecordShouldBe("H");
+        }
+
+        [Test]
+        public void home_goal_twice_in_the_first_half()
+        {
+            GivenMatch(new Match
+            {
+                LivePeriod = 1,
+                GoalRecord = "H"
+            });
+
+            _matchService.AddEvent(new MatchEvent
+            {
+                Id = _matchId,
+                EnumMatchEvent = EnumMatchEvent.HomeGoal
+            });
+
+            GoalRecordShouldBe("HH");
+        }
+
+        private ConfiguredCall GivenMatch(Match match)
+        {
+            return _matchRepository.GetMatch(_matchId).Returns(match);
         }
 
         private void GoalRecordShouldBe(string goalRecord)
