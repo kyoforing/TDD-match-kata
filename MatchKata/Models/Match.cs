@@ -7,59 +7,60 @@ namespace MatchKata.Models
 {
     public class Match
     {
-        private const string HomeGoalSymbol = "H";
-        private const string AwayGoalSymbol = "A";
-        private const char SecondHalfSymbol = ';';
         public int Id { get; set; }
         public int LivePeriod { get; set; }
         public string GoalRecord { get; set; }
 
         public void ProcessGoalRecord(MatchEvent matchEvent)
         {
-            if (IsNeedToAddHalfSymbol())
+            if (LivePeriod == 2 && !GoalRecord.Contains(';'))
             {
-                GoalRecord += SecondHalfSymbol;
+                GoalRecord += ';';
             }
-            ProcessMatchEvent(matchEvent);
-        }
 
-        private void ProcessMatchEvent(MatchEvent matchEvent)
-        {
             var processRecordLookup = new Dictionary<EnumMatchEvent, Action>()
             {
-                [EnumMatchEvent.HomeGoal] = () => AddRecord(HomeGoalSymbol),
-                [EnumMatchEvent.AwayGoal] = () => AddRecord(AwayGoalSymbol),
-                [EnumMatchEvent.CancelHomeGoal] = () => CancelRecord(HomeGoalSymbol),
-                [EnumMatchEvent.CancelAwayGoal] = () => CancelRecord(AwayGoalSymbol),
+                [EnumMatchEvent.HomeGoal] = () =>
+                {
+                    GoalRecord += "H";
+                },
+                [EnumMatchEvent.AwayGoal] = () =>
+                {
+                    GoalRecord += "A";
+                },
+                [EnumMatchEvent.CancelHomeGoal] = () =>
+                {
+                    if (GoalRecord.EndsWith("H" + ';'))
+                    {
+                        GoalRecord = GoalRecord.Remove(GoalRecord.Length - 2, 1);
+                    }
+                    else if (GoalRecord.EndsWith("H"))
+                    {
+                        GoalRecord = GoalRecord.Remove(GoalRecord.Length - 1, 1);
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                },
+                [EnumMatchEvent.CancelAwayGoal] = () =>
+                {
+                    if (GoalRecord.EndsWith("A" + ';'))
+                    {
+                        GoalRecord = GoalRecord.Remove(GoalRecord.Length - 2, 1);
+                    }
+                    else if (GoalRecord.EndsWith("A"))
+                    {
+                        GoalRecord = GoalRecord.Remove(GoalRecord.Length - 1, 1);
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                },
             };
 
             processRecordLookup[matchEvent.EnumMatchEvent]();
-        }
-
-        private void CancelRecord(string symbol)
-        {
-            if (GoalRecord.EndsWith(symbol + SecondHalfSymbol))
-            {
-                GoalRecord = GoalRecord.Remove(GoalRecord.Length - 2, 1);
-            }
-            else if (GoalRecord.EndsWith(symbol))
-            {
-                GoalRecord = GoalRecord.Remove(GoalRecord.Length - 1, 1);
-            }
-            else
-            {
-                throw new Exception();
-            }
-        }
-
-        private void AddRecord(string symbol)
-        {
-            GoalRecord += symbol;
-        }
-
-        private bool IsNeedToAddHalfSymbol()
-        {
-            return LivePeriod == 2 && !GoalRecord.Contains(SecondHalfSymbol);
         }
     }
 }
