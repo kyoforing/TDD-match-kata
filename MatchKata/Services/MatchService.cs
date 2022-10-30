@@ -23,27 +23,25 @@ namespace MatchKata.Services
 
             goalRecord.IsNeedToAddHalfSymbol(match);
 
-            match.GoalRecord = goalRecord.Record;
-
             var processRecordLookup = new Dictionary<EnumMatchEvent, Action>()
             {
                 [EnumMatchEvent.HomeGoal] = () =>
                 {
-                    match.GoalRecord += "H";
+                    goalRecord.Record += "H";
                 },
                 [EnumMatchEvent.AwayGoal] = () =>
                 {
-                    match.GoalRecord += "A";
+                    goalRecord.Record += "A";
                 },
                 [EnumMatchEvent.CancelHomeGoal] = () =>
                 {
-                    if (match.GoalRecord.EndsWith("H" + ';'))
+                    if (goalRecord.Record.EndsWith("H" + ';'))
                     {
-                        match.GoalRecord = match.GoalRecord.Remove(match.GoalRecord.Length - 2, 1);
+                        goalRecord.Record = goalRecord.Record.Remove(goalRecord.Record.Length - 2, 1);
                     }
-                    else if (match.GoalRecord.EndsWith("H"))
+                    else if (goalRecord.Record.EndsWith("H"))
                     {
-                        match.GoalRecord = match.GoalRecord.Remove(match.GoalRecord.Length - 1, 1);
+                        goalRecord.Record = goalRecord.Record.Remove(goalRecord.Record.Length - 1, 1);
                     }
                     else
                     {
@@ -52,13 +50,13 @@ namespace MatchKata.Services
                 },
                 [EnumMatchEvent.CancelAwayGoal] = () =>
                 {
-                    if (match.GoalRecord.EndsWith("A" + ';'))
+                    if (goalRecord.Record.EndsWith("A" + ';'))
                     {
-                        match.GoalRecord = match.GoalRecord.Remove(match.GoalRecord.Length - 2, 1);
+                        goalRecord.Record = goalRecord.Record.Remove(goalRecord.Record.Length - 2, 1);
                     }
-                    else if (match.GoalRecord.EndsWith("A"))
+                    else if (goalRecord.Record.EndsWith("A"))
                     {
-                        match.GoalRecord = match.GoalRecord.Remove(match.GoalRecord.Length - 1, 1);
+                        goalRecord.Record = goalRecord.Record.Remove(goalRecord.Record.Length - 1, 1);
                     }
                     else
                     {
@@ -68,6 +66,8 @@ namespace MatchKata.Services
             };
 
             processRecordLookup[matchEvent.EnumMatchEvent]();
+            match.GoalRecord = goalRecord.Record;
+            
             _matchRepository.UpdateMatch(match);
         }
     }
