@@ -19,10 +19,11 @@ namespace MatchKata.Services
         {
             var match = _matchRepository.GetMatch(matchEvent.Id);
 
-            if (match.LivePeriod == 2 && !match.GoalRecord.Contains(';'))
-            {
-                match.GoalRecord += ';';
-            }
+            var goalRecord = new GoalRecord(match.GoalRecord);
+
+            goalRecord.IsNeedToAddHalfSymbol(match);
+
+            match.GoalRecord = goalRecord.Record;
 
             var processRecordLookup = new Dictionary<EnumMatchEvent, Action>()
             {
@@ -68,6 +69,24 @@ namespace MatchKata.Services
 
             processRecordLookup[matchEvent.EnumMatchEvent]();
             _matchRepository.UpdateMatch(match);
+        }
+    }
+
+    public class GoalRecord
+    {
+        public string Record { get; set; }
+        
+        public GoalRecord(string record)
+        {
+            Record = record;
+        }
+
+        public void IsNeedToAddHalfSymbol(Match match)
+        {
+            if (match.LivePeriod == 2 && !Record.Contains(';'))
+            {
+                Record += ';';
+            }
         }
     }
 }
