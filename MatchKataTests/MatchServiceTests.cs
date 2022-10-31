@@ -205,7 +205,7 @@ namespace MatchKataTests
 
         private void GoalRecordShouldBe(string goalRecord)
         {
-            _matchRepository.Received().UpdateMatch(Arg.Is<Match>(match => match.GoalRecord == goalRecord));
+            _matchRepository.Received().UpdateGoalRecord(Arg.Is<GoalRecord>(r => r.Record == goalRecord));
         }
     }
 }

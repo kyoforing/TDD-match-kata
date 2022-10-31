@@ -4,7 +4,7 @@ namespace MatchKata.Repositories
 {
     public class MatchRepository : IMatchRepository
     {
-        public void UpdateMatch(Match match)
+        public void UpdateGoalRecord(GoalRecord goalRecord)
         {
         }
 
