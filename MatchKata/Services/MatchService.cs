@@ -18,8 +18,9 @@ namespace MatchKata.Services
 
             var goalRecord = new GoalRecord(match.GoalRecord);
             goalRecord.AddEvent(matchEvent.EnumMatchEvent, match.LivePeriod);
+            match.GoalRecord = goalRecord.Record;
             
-            _matchRepository.UpdateGoalRecord(goalRecord);
+            _matchRepository.UpdateMatch(match);
         }
     }
 }
